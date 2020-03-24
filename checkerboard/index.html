@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			/* Dom */
+			.container{
+				width: 500px;
+				height: 500px;
+				border: 1px solid black;
+			}
+			.container button{
+				background: transparent;
+				height: 50px;
+				width: 50px;
+				margin: 0;
+				padding: 0;
+				outline: none;
+				border: 1px solid #000000;
+				float: left;
+				font-size: 26px;
+			}
+			/* canvas */
+			.canvasPlay{
+				display: none;
+			}
+			#button,#bank,#revokeBank{
+			    position: fixed;
+			    width: 80px;
+			    height: 30px;
+			    top: 200px;
+			    left: 700px;
+			}
+			#revokeBank{
+				top: 230px;
+			}
+			.more{
+				position: absolute;
+				top: 50px;
+				right: 150px;
+			}
+			.more > button{
+				padding: 10px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="domPlay">
+			<div class="container"></div>
+			<button id="bank">悔棋</button>
+			<button id="revokeBank">撤销悔棋</button>
+		</div>
+		<div class="canvasPlay">
+			<canvas width="1000" height="800" id="canvas"></canvas>
+			<button type="button" id="button">悔棋</button>
+		</div>
+		<div class="more">
+			<button class="Dom">Dom玩法</button>
+			<button class="Canvas">Canvas玩法</button>
+		</div>
+	</body>
+	<script>
+		let domP = document.querySelector(".Dom");
+		let canvasP = document.querySelector(".Canvas");
+		let domPlay = document.querySelector(".domPlay");
+		let canvasPlay = document.querySelector(".canvasPlay");
+		domP.onclick = function(){
+			isShow(domPlay,canvasPlay)
+		}
+		canvasP.onclick = function(){
+			isShow(canvasPlay,domPlay)
+		}
+		function isShow(show,hide){
+			show.style["display"] = "block";
+			hide.style["display"] = "none";
+		}
+		// 作者
+		let titleTextCode = [];
+		"应聘前端工程师邓浩忠".split("").forEach((item) =>{
+			titleTextCode.push(btoa(item.codePointAt()));
+		});
+	</script>
+	<script src="js/delegate.js"></script>
+	<script src="js/DomPlay.js"></script>
+	<script src="js/CanvasPlay.js"></script>
+	<script src="js/author.js"></script>
+</html>
