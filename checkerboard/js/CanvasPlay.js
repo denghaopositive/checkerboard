@@ -12,6 +12,7 @@
         circleRadius = width/num/2 - padding, //判断当前点击是红方还是黑方
         coords = [], //保存点击过的坐标
         record = []; //保存棋盘上红方子或者黑方子
+		victory = null; //判断胜利者
 
     //定义棋盘上棋格未下子状态为0
     for(var i = 0; i<num; i++){
@@ -104,9 +105,11 @@
                         
                     }
                     if(isVictory()){
+						//游戏结束
+						// victory==1?alert("红方胜"):alert("黑方胜");
                         setTimeout(function(){
-                            alert("GAME OVER") //游戏结束
-                        })
+							victory==1?alert("红方胜"):alert("黑方胜");
+                        },0)
                     }
                 }
             }
@@ -150,7 +153,7 @@
 
     //判断棋盘上的标记，是否达到胜利条件
     function isVictory(){
-        var isWin = false, a1, a2, a3, a4, a5;
+        var isWin = false, a1, a2, a3, a4, a5;console.log(record)
         for(var i=0,len=record.length; i<len; i++){
             for(var j=0; j<record[i].length; j++){
                 if(record[i][j] !==0 ){
@@ -166,14 +169,15 @@
                         }
                         
                         //判断正斜线方向
-                        a1 = record[i][j];
-                        a2 = record[i + 1][j + 1];
-                        a3 = record[i + 2][j + 2];
-                        a4 = record[i + 3][j + 3];
-                        a5 = record[i + 4][j + 4];
-                        if(isEqual(a1, a2, a3, a4, a5)){
-                            isWin = true;
-                        }
+//                         a1 = record[i][j];
+//                         a2 = record[i + 1][j + 1];
+//                         a3 = record[i + 2][j + 2];
+//                         a4 = record[i + 3][j + 3];
+//                         a5 = record[i + 4][j + 4];
+// 						console.log(a1, a2, a3, a4, a5)
+//                         if(isEqual(a1, a2, a3, a4, a5)){
+//                             isWin = true;
+//                         }
 
                         //判断垂直方向
                         a1 = record[i][j];
@@ -186,7 +190,16 @@
                         }
                     }
                     if(j > 3 && i < len - 5){
-                        
+						//判断正斜线方向
+						a1 = record[i][j];
+						a2 = record[i + 1][j + 1];
+						a3 = record[i + 2][j + 2];
+						a4 = record[i + 3][j + 3];
+						a5 = record[i + 4][j + 4];
+						console.log(a1, a2, a3, a4, a5)
+						if(isEqual(a1, a2, a3, a4, a5)){
+						    isWin = true;
+						}
                         //判断反斜线方向
                         a1 = record[i][j];
                         a2 = record[i + 1][j - 1];
@@ -206,7 +219,8 @@
     //判断相邻的5个数字是否相等,若相等则代表已分胜负
     function isEqual(a1, a2, a3, a4, a5){
         if(a1 == a2 && a2==a3 && a3==a4 && a4 == a5){
-            return true
+			victory = a5;
+            return true;
         }else {
             return false
         }
